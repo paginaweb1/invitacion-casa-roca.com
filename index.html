@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Silla Vacía</title>
+
+<style>
+body{
+margin:0;
+font-family: Arial, sans-serif;
+background:#0b1c2c;
+color:white;
+}
+
+/* SPLASH */
+#splash{
+position:fixed;
+width:100%;
+height:100%;
+background:#0b1c2c;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+animation:fadeOut 1.5s ease 3s forwards;
+}
+
+#splash img{
+width:160px;
+animation:zoom 2s ease;
+}
+
+@keyframes zoom{
+0%{transform:scale(0.5); opacity:0;}
+100%{transform:scale(1); opacity:1;}
+}
+
+@keyframes fadeOut{
+to{opacity:0; visibility:hidden;}
+}
+
+/* CONTENIDO */
+.container{
+padding:15px;
+opacity:0;
+animation:show 1s ease 3.2s forwards;
+}
+
+@keyframes show{
+to{opacity:1;}
+}
+
+.title{
+text-align:center;
+font-size:28px;
+margin-bottom:10px;
+font-weight:bold;
+}
+
+/* UBICACION */
+.location{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+margin:10px auto 20px;
+background:#FFD700;
+color:black;
+padding:10px 15px;
+border-radius:12px;
+text-decoration:none;
+font-size:14px;
+font-weight:bold;
+width:fit-content;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+}
+
+@media(max-width:900px){
+.grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:500px){
+.grid{grid-template-columns:1fr;}
+}
+
+/* CARD */
+.card{
+border-radius:15px;
+padding:15px;
+aspect-ratio:4/5;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+position:relative;
+box-shadow:0 8px 20px rgba(0,0,0,0.4);
+overflow:hidden;
+}
+
+/* SILLA */
+.card::before{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background:url('silla.png') center no-repeat;
+background-size:60%;
+opacity:0.15;
+}
+
+/* COLORES */
+.card:nth-child(1){background:#4a4a00;}
+.card:nth-child(2){background:#7a0000;}
+.card:nth-child(3){background:#14213d;}
+.card:nth-child(4){background:#0b2c3d;}
+.card:nth-child(5){background:#c9a66b;}
+.card:nth-child(6){background:#8b5a2b;}
+.card:nth-child(7){background:#8D8B55;}
+.card:nth-child(8){background:#E4B028;}
+.card:nth-child(9){background:#7a0000;}
+.card:nth-child(10){background:#8b5a2b;}
+.card:nth-child(11){background:#14213d;}
+.card:nth-child(12){background:#E0B046;}
+
+/* LOGO */
+.logo{
+width:50px;
+margin:auto;
+z-index:1;
+}
+
+/* MENSAJE */
+.card p{
+text-align:center;
+font-size:18px;
+font-weight:bold;
+color:black;
+flex-grow:1;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:10px;
+z-index:1;
+}
+
+/* INVITACION */
+.invite{
+text-align:center;
+font-size:20px;
+font-weight:bold;
+margin-top:5px;
+animation:colorFlow 3s infinite alternate, pulseText 2s infinite;
+text-shadow:0 0 10px rgba(0,0,0,0.4);
+z-index:1;
+}
+
+@keyframes colorFlow{
+0%{color:#000;}
+100%{color:#0b1c2c;}
+}
+
+@keyframes pulseText{
+0%{transform:scale(1);}
+50%{transform:scale(1.05);}
+100%{transform:scale(1);}
+}
+
+/* SHARE */
+.share{
+position:absolute;
+bottom:10px;
+right:10px;
+width:55px;
+height:55px;
+background:white;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+box-shadow:0 4px 12px rgba(0,0,0,0.4);
+animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.1);}
+100%{transform:scale(1);}
+}
+
+.share img{width:30px;}
+</style>
+</head>
+
+<body>
+
+<div id="splash">
+<img src="logocasaroca.webp">
+</div>
+
+<div class="container">
+
+<div class="title">LA SILLA VACÍA</div>
+
+<a class="location" href="https://maps.google.com/?q=Cl+58+27-32+Casa+Roca" target="_blank">
+📍 Cl. 58 # 27-32 Casa Roca
+</a>
+
+<div class="grid" id="posts"></div>
+
+</div>
+
+<script>
+
+const mensajes = [
+"Un momento con Dios puede cambiar el rumbo de toda tu semana.",
+"Dios nunca se aleja, a veces somos nosotros quienes dejamos de acercarnos.",
+"No dejes que el cansancio te robe el momento con Dios.",
+"Ven tal como eres, Dios se encarga del resto.",
+"Hay paz donde dejaste de buscar. Vuelve.",
+"Lo que buscas afuera, lo encuentras en la presencia de Dios.",
+"La iglesia no es un lugar perfecto, es el lugar donde Dios perfecciona corazones.",
+"Tu familia necesita verte más cerca de Dios.",
+"Cuando te acercas a Dios, encuentras fuerzas que no sabías que tenías.",
+"Ven y descubre por ti mismo lo que Dios puede hacer en tu vida.",
+"Dios no te pide perfección, solo que te acerques.",
+"Dios siempre tiene algo nuevo para ti."
+];
+
+const contenedor = document.getElementById("posts");
+
+mensajes.forEach(m => {
+
+let card = document.createElement("div");
+card.className = "card";
+
+card.innerHTML = `
+<img class="logo" src="logoRoca_sin fondo.png">
+
+<p>"${m}"</p>
+
+<div class="invite">¡Te invito a la iglesia!</div>
+
+<a class="share"
+href="https://wa.me/?text=${encodeURIComponent(
+"LA SILLA VACÍA\n\n\"" + m + "\"\n\n¡Te invito a la iglesia!\nCasa Roca\nCl. 58 # 27-32"
+)}" target="_blank">
+
+<img src="flecha.png">
+</a>
+`;
+
+contenedor.appendChild(card);
+
+});
+
+</script>
+
+</body>
+</html>
