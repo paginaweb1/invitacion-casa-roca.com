@@ -170,30 +170,35 @@ z-index:1;
 100%{transform:scale(1);}
 }
 
-/* SHARE */
-.share{
-position:absolute;
-bottom:10px;
-right:10px;
-width:55px;
-height:55px;
-background:white;
-border-radius:50%;
+/* BOTON COMPARTIR */
+.actions{
+display:flex;
+justify-content:center;
+margin-top:10px;
+z-index:2;
+}
+
+.btn{
+width:70%;
+height:45px;
+border-radius:10px;
 display:flex;
 justify-content:center;
 align-items:center;
-box-shadow:0 4px 12px rgba(0,0,0,0.4);
-animation:pulse 2s infinite;
+font-size:14px;
+font-weight:bold;
+text-decoration:none;
+background:#0b2c3d;
+color:white;
+cursor:pointer;
+transition:0.3s;
 }
 
-@keyframes pulse{
-0%{transform:scale(1);}
-50%{transform:scale(1.1);}
-100%{transform:scale(1);}
+.btn:hover{
+background:#123a52;
 }
-
-.share img{width:30px;}
 </style>
+
 </head>
 
 <body>
@@ -214,8 +219,9 @@ animation:pulse 2s infinite;
 
 </div>
 
-<script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
+<script>
 const mensajes = [
 "Un momento con Dios puede cambiar el rumbo de toda tu semana.",
 "Dios nunca se aleja, a veces somos nosotros quienes dejamos de acercarnos.",
@@ -231,6 +237,29 @@ const mensajes = [
 "Dios siempre tiene algo nuevo para ti."
 ];
 
+function compartir(btn){
+let card = btn.closest(".card");
+
+html2canvas(card).then(canvas => {
+canvas.toBlob(blob => {
+const file = new File([blob], "post.png", { type: "image/png" });
+
+if (navigator.share) {
+navigator.share({
+files: [file],
+title: "La Silla Vacía",
+text: "Te invito a la iglesia Casa Roca"
+});
+} else {
+let link = document.createElement("a");
+link.href = canvas.toDataURL();
+link.download = "post.png";
+link.click();
+}
+});
+});
+}
+
 const contenedor = document.getElementById("posts");
 
 mensajes.forEach(m => {
@@ -245,19 +274,16 @@ card.innerHTML = `
 
 <div class="invite">¡Te invito a la iglesia!</div>
 
-<a class="share"
-href="https://wa.me/?text=${encodeURIComponent(
-"LA SILLA VACÍA\n\n\"" + m + "\"\n\n¡Te invito a la iglesia!\nCasa Roca\nCl. 58 # 27-32"
-)}" target="_blank">
-
-<img src="flecha.png">
-</a>
+<div class="actions">
+<div class="btn" onclick="compartir(this)">
+Compartir
+</div>
+</div>
 `;
 
 contenedor.appendChild(card);
 
 });
-
 </script>
 
 </body>
