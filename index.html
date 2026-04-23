@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>La Silla Vacía</title>
 
-<!-- ICONOS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
@@ -61,6 +60,7 @@ margin-bottom:10px;
 font-weight:bold;
 }
 
+/* UBICACION */
 .location{
 display:flex;
 justify-content:center;
@@ -82,10 +82,20 @@ animation:goldGlow 3s infinite alternate;
 
 .invite-main{
 text-align:center;
-margin-bottom:20px;
+margin-bottom:8px;
 font-size:18px;
 font-weight:bold;
 color:#f5d27a;
+}
+
+/* FRASE NUEVA */
+.frase{
+text-align:center;
+font-size:14px;
+margin-bottom:20px;
+color:#ddd;
+padding:0 10px;
+font-style:italic;
 }
 
 /* GRID */
@@ -116,7 +126,20 @@ height:100%;
 object-fit:cover;
 }
 
-/* BOTON SHARE SIN FONDO */
+/* TITULOS (NO SE COMPARTEN) */
+.titulo{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+padding:8px;
+text-align:center;
+font-size:13px;
+font-weight:bold;
+background:rgba(0,0,0,0.55);
+}
+
+/* SHARE */
 .share-btn{
 position:absolute;
 bottom:10px;
@@ -129,7 +152,6 @@ justify-content:center;
 cursor:pointer;
 }
 
-/* ICONO */
 .share-btn i{
 font-size:22px;
 color:white;
@@ -137,11 +159,9 @@ opacity:0.9;
 transition:0.3s;
 }
 
-/* HOVER PRO */
 .share-btn:hover i{
 color:#d4af37;
 transform:scale(1.15);
-opacity:1;
 }
 </style>
 
@@ -163,6 +183,8 @@ opacity:1;
 
 <p class="invite-main">Te invitamos a mi casa</p>
 
+<p class="frase">«Nadie es tan fuerte como todos nosotros juntos, porque en nuestra unión habita la presencia misma de Dios»</p>
+
 <div class="grid" id="posts"></div>
 
 </div>
@@ -176,19 +198,41 @@ const imagenes = [
 "6.png","7.png","8.png","9.png","10.png"
 ];
 
-function compartir(btn, index){
-let card = btn.closest(".card");
+const titulos = [
+"Para quien no ha vuelto",
+"Para el que cambió de dirección",
+"Para el nuevo",
+"Para un momento difícil",
+"Para el que está desanimado",
+"Para el que está avergonzado y con culpa",
+"Para el que cree que no necesita a Dios",
+"Para el que tiene problemas familiares",
+"Para el que lucha con malos hábitos",
+"Para quien es cabeza de familia"
+];
 
-html2canvas(card).then(canvas => {
+/* COMPARTIR SIN TITULO */
+async function compartir(btn, index){
+let card = btn.closest(".card");
+let titulo = card.querySelector(".titulo");
+
+/* ocultar titulo */
+titulo.style.display = "none";
+
+const canvas = await html2canvas(card);
+
+/* restaurar */
+titulo.style.display = "block";
+
 canvas.toBlob(blob => {
 
 const file = new File([blob], `post_${index}.png`, { type: "image/png" });
 
-if (navigator.share) {
+if (navigator.canShare && navigator.canShare({ files: [file] })) {
 navigator.share({
 files: [file],
 title: "La Silla Vacía",
-text: "Te invito a la iglesia Casa Roca"
+text: "Te invito a la iglesia Casa Roca 🙌"
 });
 } else {
 let link = document.createElement("a");
@@ -196,7 +240,7 @@ link.href = canvas.toDataURL();
 link.download = `post_${index}.png`;
 link.click();
 }
-});
+
 });
 }
 
@@ -208,8 +252,8 @@ let card = document.createElement("div");
 card.className = "card";
 
 card.innerHTML = `
+<div class="titulo">${titulos[i]}</div>
 <img src="${img}">
-
 <div class="share-btn" onclick="compartir(this, ${i+1})">
 <i class="fa-regular fa-share-from-square"></i>
 </div>
