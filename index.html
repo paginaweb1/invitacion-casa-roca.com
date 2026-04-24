@@ -100,25 +100,25 @@ padding:0 10px;
 font-style:italic;
 }
 
-/* GRID RESPONSIVE REAL */
+/* GRID MOBILE FIRST */
 .grid{
 display:grid;
-grid-template-columns:repeat(5,1fr);
+grid-template-columns:1fr; /* 🔥 celular */
 gap:12px;
 width:100%;
 }
 
 /* TABLET */
-@media(max-width:900px){
+@media(min-width:600px){
 .grid{
 grid-template-columns:repeat(2,1fr);
 }
 }
 
-/* CELULAR (🔥 aquí estaba el problema) */
-@media(max-width:600px){
+/* PC */
+@media(min-width:1000px){
 .grid{
-grid-template-columns:1fr;
+grid-template-columns:repeat(5,1fr);
 }
 }
 
