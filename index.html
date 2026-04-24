@@ -31,8 +31,6 @@ animation:fadeOut 1.5s ease 3s forwards;
 #splash img{
 width:100%;
 animation:zoom 2s ease;
-justify-content: center;
-
 display:block;
 }
 
@@ -132,10 +130,24 @@ background:transparent !important;
 display:block;
 }
 
-/* TITULOS */
-.titulo{
+/* MENSAJE NUMERO (nuevo) */
+.mensaje-numero{
 position:absolute;
 top:0;
+left:0;
+width:100%;
+padding:6px;
+text-align:center;
+font-size:14px;
+font-weight:bold;
+background:rgba(212,175,55,0.85);
+color:#000;
+}
+
+/* TITULO */
+.titulo{
+position:absolute;
+top:28px; /* 🔥 baja el título para dejar espacio arriba */
 left:0;
 width:100%;
 padding:8px;
@@ -220,16 +232,19 @@ const titulos = [
 async function compartir(btn, index){
 let card = btn.closest(".card");
 let titulo = card.querySelector(".titulo");
+let numero = card.querySelector(".mensaje-numero");
 
 titulo.style.display = "none";
+numero.style.display = "none";
 
 const canvas = await html2canvas(card, {
-backgroundColor: null, // 🔥 elimina bordes blancos
+backgroundColor: null,
 scale: 2,
 useCORS: true
 });
 
 titulo.style.display = "block";
+numero.style.display = "block";
 
 canvas.toBlob(blob => {
 
@@ -259,6 +274,7 @@ let card = document.createElement("div");
 card.className = "card";
 
 card.innerHTML = `
+<div class="mensaje-numero">Mensaje ${i+1}</div>
 <div class="titulo">${titulos[i]}</div>
 <img src="${img}">
 <div class="share-btn" onclick="compartir(this, ${i+1})">
