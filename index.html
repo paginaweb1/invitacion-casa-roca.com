@@ -29,9 +29,11 @@ animation:fadeOut 1.5s ease 3s forwards;
 }
 
 #splash img{
-width:100%;
+width:50%;
+height: 100%;
 animation:zoom 2s ease;
 justify-content: center;
+
 display:block;
 }
 
@@ -139,7 +141,7 @@ left:0;
 width:100%;
 padding:8px;
 text-align:center;
-font-size:13px;
+font-size:17px;
 font-weight:bold;
 background:rgba(0,0,0,0.55);
 }
@@ -180,13 +182,13 @@ transform:scale(1.15);
 
 <div class="container">
 
-<div class="title">¡COMO IGLESIA SOMOS LLAMADOS A IMPACTAR!</div>
+<div class="title">¡ UN LLAMADO DE LA IGLESIA A IMPACTAR !</div>
 
 <a class="location" href="https://maps.google.com/?q=Cl+58+27-32+Casa+Roca" target="_blank">
 📍 Cl. 58 # 27-32 Casa Roca
 </a>
 
-<p class="invite-main">Mateo: 28  19-20</p>
+<p class="invite-main">Te invitamos a mi casa</p>
 
 <p class="frase">«Nadie es tan fuerte como todos nosotros juntos, porque en nuestra unión habita la presencia misma de Dios»</p>
 
@@ -204,16 +206,16 @@ const imagenes = [
 ];
 
 const titulos = [
-"Para quien no ha vuelto",
-"Para el que cambió de dirección",
-"Para el nuevo",
-"Para un momento difícil",
-"Para el que está desanimado",
-"Para el que está avergonzado y con culpa",
-"Para el que cree que no necesita a Dios",
-"Para el que tiene problemas familiares",
-"Para el que lucha con malos hábitos",
-"Para quien es cabeza de familia"
+"1. Para quien no ha vuelto",
+"2. Para el que cambió de dirección",
+"3. Para el nuevo",
+"4. Para un momento difícil",
+"5. Para el que está desanimado",
+"6. Para el que está avergonzado y con culpa",
+"7. Para el que cree que no necesita a Dios",
+"8. Para el que tiene problemas familiares",
+"9. Para el que lucha con malos hábitos",
+"10. Para quien es cabeza de familia"
 ];
 
 async function compartir(btn, index){
@@ -238,7 +240,7 @@ if (navigator.canShare && navigator.canShare({ files: [file] })) {
 navigator.share({
 files: [file],
 title: "La Silla Vacía",
-text: "Te invito a la iglesia Casa sobre la Roca 🙌"
+text: "Te invito a la iglesia Casa Roca 🙌"
 });
 } else {
 let link = document.createElement("a");
