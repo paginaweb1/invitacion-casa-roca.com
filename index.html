@@ -29,12 +29,13 @@ animation:fadeOut 1.5s ease 3s forwards;
 }
 
 #splash img{
-width:700px;
+width:260px; /* 🔥 logo más grande */
+max-width:80%;
 animation:zoom 2s ease;
 }
 
 @keyframes zoom{
-0%{transform:scale(0.5); opacity:0;}
+0%{transform:scale(0.4); opacity:0;}
 100%{transform:scale(1); opacity:1;}
 }
 
@@ -97,18 +98,11 @@ padding:0 10px;
 font-style:italic;
 }
 
-/* GRID */
+/* GRID RESPONSIVE CORREGIDO */
 .grid{
 display:grid;
-grid-template-columns:repeat(5,1fr);
+grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
 gap:12px;
-}
-
-@media(max-width:900px){
-.grid{grid-template-columns:repeat(2,1fr);}
-}
-@media(max-width:500px){
-.grid{grid-template-columns:1fr;}
 }
 
 /* CARD */
@@ -117,7 +111,7 @@ border-radius:15px;
 overflow:hidden;
 position:relative;
 box-shadow:0 8px 20px rgba(0,0,0,0.4);
-background:#0b1c2c; /* 🔥 evita bordes blancos */
+background:#0b1c2c; /* 🔥 evita borde blanco */
 }
 
 .card img{
@@ -171,7 +165,7 @@ transform:scale(1.15);
 <body>
 
 <div id="splash">
-<img src="logocasaroca.png">
+<img src="logocasaroca.webp">
 </div>
 
 <div class="container">
@@ -221,7 +215,7 @@ let titulo = card.querySelector(".titulo");
 titulo.style.display = "none";
 
 const canvas = await html2canvas(card, {
-backgroundColor: "#0b1c2c", // 🔥 elimina borde blanco en WhatsApp
+backgroundColor: "#0b1c2c",
 scale: 2,
 useCORS: true
 });
