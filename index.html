@@ -29,7 +29,7 @@ animation:fadeOut 1.5s ease 3s forwards;
 }
 
 #splash img{
-width:1000px;
+width:260px;
 max-width:80%;
 animation:zoom 2s ease;
 }
@@ -100,16 +100,16 @@ padding:0 10px;
 font-style:italic;
 }
 
-/* GRID MOBILE FIRST */
+/* GRID MOBILE-FIRST (🔥 CORREGIDO) */
 .grid{
 display:grid;
-grid-template-columns:1fr; /* 🔥 celular */
+grid-template-columns:1fr; /* SIEMPRE 1 en celular */
 gap:12px;
 width:100%;
 }
 
 /* TABLET */
-@media(min-width:600px){
+@media(min-width:768px){
 .grid{
 grid-template-columns:repeat(2,1fr);
 }
