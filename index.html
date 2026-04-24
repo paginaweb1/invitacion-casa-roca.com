@@ -29,7 +29,7 @@ animation:fadeOut 1.5s ease 3s forwards;
 }
 
 #splash img{
-width:160px;
+width:700px;
 animation:zoom 2s ease;
 }
 
@@ -88,7 +88,6 @@ font-weight:bold;
 color:#f5d27a;
 }
 
-/* FRASE NUEVA */
 .frase{
 text-align:center;
 font-size:14px;
@@ -118,12 +117,14 @@ border-radius:15px;
 overflow:hidden;
 position:relative;
 box-shadow:0 8px 20px rgba(0,0,0,0.4);
+background:#0b1c2c; /* 🔥 evita bordes blancos */
 }
 
 .card img{
 width:100%;
 height:100%;
 object-fit:cover;
+display:block; /* 🔥 elimina espacio blanco */
 }
 
 /* TITULOS (NO SE COMPARTEN) */
@@ -170,7 +171,7 @@ transform:scale(1.15);
 <body>
 
 <div id="splash">
-<img src="logocasaroca.webp">
+<img src="logocasaroca.png">
 </div>
 
 <div class="container">
@@ -211,7 +212,7 @@ const titulos = [
 "Para quien es cabeza de familia"
 ];
 
-/* COMPARTIR SIN TITULO */
+/* COMPARTIR SIN BORDE BLANCO */
 async function compartir(btn, index){
 let card = btn.closest(".card");
 let titulo = card.querySelector(".titulo");
@@ -219,7 +220,11 @@ let titulo = card.querySelector(".titulo");
 /* ocultar titulo */
 titulo.style.display = "none";
 
-const canvas = await html2canvas(card);
+const canvas = await html2canvas(card, {
+backgroundColor: "#0b1c2c", // 🔥 elimina borde blanco en WhatsApp
+scale: 2,
+useCORS: true
+});
 
 /* restaurar */
 titulo.style.display = "block";
