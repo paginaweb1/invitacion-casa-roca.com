@@ -29,7 +29,7 @@ animation:fadeOut 1.5s ease 3s forwards;
 }
 
 #splash img{
-width:260px; /* 🔥 logo más grande */
+width:800px;
 max-width:80%;
 animation:zoom 2s ease;
 }
@@ -98,11 +98,25 @@ padding:0 10px;
 font-style:italic;
 }
 
-/* GRID RESPONSIVE CORREGIDO */
+/* GRID CORRECTO */
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+grid-template-columns:repeat(5,1fr);
 gap:12px;
+}
+
+/* TABLET */
+@media(max-width:900px){
+.grid{
+grid-template-columns:repeat(2,1fr);
+}
+}
+
+/* CELULAR */
+@media(max-width:500px){
+.grid{
+grid-template-columns:1fr;
+}
 }
 
 /* CARD */
@@ -111,17 +125,17 @@ border-radius:15px;
 overflow:hidden;
 position:relative;
 box-shadow:0 8px 20px rgba(0,0,0,0.4);
-background:#0b1c2c; /* 🔥 evita borde blanco */
+background:#0b1c2c;
 }
 
 .card img{
 width:100%;
 height:100%;
 object-fit:cover;
-display:block; /* 🔥 elimina espacio blanco */
+display:block;
 }
 
-/* TITULOS (NO SE COMPARTEN) */
+/* TITULOS */
 .titulo{
 position:absolute;
 top:0;
@@ -165,7 +179,7 @@ transform:scale(1.15);
 <body>
 
 <div id="splash">
-<img src="logocasaroca.webp">
+<img src="logocasaroca.png">
 </div>
 
 <div class="container">
@@ -206,12 +220,10 @@ const titulos = [
 "Para quien es cabeza de familia"
 ];
 
-/* COMPARTIR SIN BORDE BLANCO */
 async function compartir(btn, index){
 let card = btn.closest(".card");
 let titulo = card.querySelector(".titulo");
 
-/* ocultar titulo */
 titulo.style.display = "none";
 
 const canvas = await html2canvas(card, {
@@ -220,7 +232,6 @@ scale: 2,
 useCORS: true
 });
 
-/* restaurar */
 titulo.style.display = "block";
 
 canvas.toBlob(blob => {
